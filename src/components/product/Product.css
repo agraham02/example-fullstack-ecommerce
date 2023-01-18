@@ -1,0 +1,30 @@
+.product-container {
+    /* border: solid red; */
+    flex-direction: column;
+    display: flex;
+    height: fit-content;
+}
+
+.product-container .img-container {
+    border: solid blue;
+    /* border-radius: 5px;
+    overflow: hidden; */
+    /* width: 100%;
+    flex-grow: 1; */
+}
+
+img {
+    max-width: 100%;
+    /* max-width: 200px; */
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-body {
+    padding: 3px 0;
+    /* text-align: center; */
+}
+
+.product-body .title{
+    /* font-weight: bold; */
+}

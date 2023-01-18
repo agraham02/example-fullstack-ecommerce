@@ -1,0 +1,19 @@
+nav {
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    padding: .5rem 2rem;
+    /* border: solid red; */
+    z-index: 5;
+    /* position: fixed; */
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+nav .categories {
+    display: flex;
+}
+
+nav .categories > * {
+    margin: 0 .8rem;
+}

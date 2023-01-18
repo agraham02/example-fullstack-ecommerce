@@ -1,0 +1,34 @@
+.productList-container {
+    /* border: solid black; */
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 20px;
+    /* flex-grow: 1; */
+    align-items: flex-end;
+    flex-basis: 0;
+}
+
+.load-more-container {
+    /* border: solid black; */
+    text-align: center;
+}
+
+.load-more-container > * {
+    margin: .4rem 0;
+}
+
+.product-cnt-container {
+    /* border: solid black; */
+    width: 200px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #ddd;
+}
+
+.product-cnt-container div {
+    padding: 3px;
+    background-color: blue;
+    /* width: 20%; */
+    transition: 0.3s;
+    border-radius: 20px;
+}
