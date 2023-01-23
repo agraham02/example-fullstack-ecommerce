@@ -1,0 +1,25 @@
+[
+    {
+        "firstName": "Test",
+        "lastName": "Dummy",
+        "email": "testDummy@gmail.com",
+        "emailConfirmed": true,
+        "passwordHashed": "12345678",
+        "createdAt": "date",
+        "bag": {
+            "contents": [],
+            "total": 99.56
+        },
+        "orders": [
+            {
+                "paymentId": 1,
+                "shippingAddressId": 1,
+                "bag": {},
+                "status": "",
+                "createdAt": "date"
+            },
+            {}
+        ],
+        "addersses": []
+    }
+]

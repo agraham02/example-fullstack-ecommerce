@@ -1,0 +1,234 @@
+[
+    {
+        "id": "1",
+        "name": "Plain White T-Shirt",
+        "price": 99,
+        "description": "Plain. Simple.",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt1.jpg"
+    },
+    {
+        "id": "2",
+        "name": "NGUYEN HUE T-Shirt",
+        "price": 35,
+        "description": "",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt2.jpg"
+    },
+    {
+        "id": "3",
+        "name": "CAMERA CREW T-Shirt",
+        "price": 20,
+        "description": "Let 'em know who you are.",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt3.jpg"
+    },
+    {
+        "id": "4",
+        "name": "CHOOSE LOVE T-Shirt",
+        "price": 20,
+        "description": "A simple message with a powerful meaning",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt4.jpg"
+    },
+    {
+        "id": "5",
+        "name": "aDd. SeQuL T-Shirt",
+        "price": 25,
+        "description": "This t-shirt features a subtle, yet stylish embroidered design on the back. Made from soft, lightweight cotton, it has a relaxed fit and comes in a variety of colors. The embroidery adds a touch of elegance to this casual shirt, making it perfect for dressier occasions.",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt5.jpg"
+    },
+    {
+        "id": "6",
+        "name": "I LOVE MY TATOO T-Shirt",
+        "price": 20,
+        "description": "",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt6.jpg"
+    },
+    {
+        "id": "7",
+        "name": "MARA T-Shirt",
+        "price": 20,
+        "description": "",
+        "categories": ["Tops", "T-Shirts"],
+        "img_src": "tops/tShirts/tshirt7.jpg"
+    },
+    {
+        "id": "8",
+        "name": "Perception Long Sleeve",
+        "price": 40,
+        "description": "",
+        "categories": ["Tops", "Long Sleeves"],
+        "img_src": "tops/longSleeves/longSleeve1.jpg"
+    },
+    {
+        "id": "9",
+        "name": "705 Long sleeve",
+        "price": 35,
+        "description": "",
+        "categories": ["Tops", "Long Sleeves"],
+        "img_src": "tops/longSleeves/longSleeve2.jpg"
+    },
+    {
+        "id": "10",
+        "name": "Fitted Jeans",
+        "price": 25,
+        "description": "",
+        "categories": ["Bottoms", "Jeans"],
+        "img_src": "bottoms/jeans/jeans1.jpg"
+    },
+    {
+        "id": "11",
+        "name": "Knee-cut Jeans",
+        "price": 30,
+        "description": "",
+        "categories": ["Bottoms", "Jeans"],
+        "img_src": "bottoms/jeans/jeans2.jpg"
+    },
+    {
+        "id": "12",
+        "name": "Distressed Jeans",
+        "price": 30,
+        "description": "",
+        "categories": ["Bottoms", "Jeans"],
+        "img_src": "bottoms/jeans/jeans3.jpg"
+    },
+    {
+        "id": "13",
+        "name": "Louis Vuitton Joggers",
+        "price": 15,
+        "description": "",
+        "categories": ["Bottoms", "Joggers"],
+        "img_src": "bottoms/joggers/joggers1.jpg"
+    },
+    {
+        "id": "14",
+        "name": "High Waist Joggers",
+        "price": 35,
+        "description": "",
+        "categories": ["Bottoms", "Joggers"],
+        "img_src": "bottoms/joggers/joggers2.jpg"
+    },
+    {
+        "id": "15",
+        "name": "Relaxed Joggers",
+        "price": 8,
+        "description": "",
+        "categories": ["Bottoms", "Joggers"],
+        "img_src": "bottoms/joggers/joggers3.jpg"
+    },
+    {
+        "id": "16",
+        "name": "Nike Joggers",
+        "price": 60,
+        "description": "",
+        "categories": ["Bottoms", "Joggers"],
+        "img_src": "bottoms/joggers/joggers4.jpg"
+    },
+    {
+        "id": "17",
+        "name": "Jean Shorts",
+        "price": 15,
+        "description": "",
+        "categories": ["Bottoms", "Shorts"],
+        "img_src": "bottoms/shorts/shorts1.jpg"
+    },
+    {
+        "id": "18",
+        "name": "Frayed Jean Shorts",
+        "price": 15,
+        "description": "",
+        "categories": ["Bottoms", "Shorts"],
+        "img_src": "bottoms/shorts/shorts2.jpg"
+    },
+    {
+        "id": "19",
+        "name": "Nike Dunks",
+        "price": 160,
+        "description": "",
+        "categories": ["Shoes"],
+        "img_src": "shoes/shoes1.jpg"
+    },
+    {
+        "id": "20",
+        "name": "Nike Airmax '98",
+        "price": 100,
+        "description": "",
+        "categories": ["Shoes"],
+        "img_src": "shoes/shoes2.jpg"
+    },
+    {
+        "id": "21",
+        "name": "Nike Air Force 1s",
+        "price": 130,
+        "description": "",
+        "categories": ["Shoes"],
+        "img_src": "shoes/shoes3.jpg"
+    },
+    {
+        "id": "22",
+        "name": "\"Red\" Shoe",
+        "price": 20,
+        "description": "",
+        "categories": ["Shoes"],
+        "img_src": "shoes/shoes4.jpg"
+    },
+    {
+        "id": "23",
+        "name": "\"Blue\" Shoe 5",
+        "price": 20,
+        "description": "",
+        "categories": ["Shoes"],
+        "img_src": "shoes/shoes5.jpg"
+    },
+    {
+        "id": "24",
+        "name": "\"Tree\" Hat",
+        "price": 60,
+        "description": "",
+        "categories": ["Accessories", "Hats"],
+        "img_src": "accessories/hats/hat1.jpg"
+    },
+    {
+        "id": "25",
+        "name": "\"Ice Cream\" Hat",
+        "price": 60,
+        "description": "",
+        "categories": ["Accessories", "Hats"],
+        "img_src": "accessories/hats/hat2.jpg"
+    },
+    {
+        "id": "26",
+        "name": "\"WHITE\" Hat",
+        "price": 60,
+        "description": "",
+        "categories": ["Accessories", "Hats"],
+        "img_src": "accessories/hats/hat3.jpg"
+    },
+    {
+        "id": "27",
+        "name": "Apple Watch Series 4",
+        "price": 35,
+        "description": "It's alright.",
+        "categories": ["Accessories", "Watches"],
+        "img_src": "accessories/watches/watch1.jpg"
+    },
+    {
+        "id": "28",
+        "name": "Fossil Watch",
+        "price": 200,
+        "description": "A modern take on a timeless timepiece.",
+        "categories": ["Accessories", "Watches"],
+        "img_src": "accessories/watches/watch2.jpg"
+    },
+    {
+        "id": "29",
+        "name": "Rolex Watch",
+        "price": 3600,
+        "description": "The classic Rolex watch, redefined (don't ask how, just trust us).",
+        "categories": ["Accessories", "Watches"],
+        "img_src": "accessories/watches/watch3.jpg"
+    }
+]
