@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        default: "No Description Avaliable",
+        default: "No description avaliable.",
     },
     category: {
         type: String,

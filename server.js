@@ -68,14 +68,14 @@ database.once("connected", () => {
 // app.use("/auth", authenticationRouter);
 
 const productsRouter = require("./routes/product");
-app.use("/product", productsRouter);
+app.use("/products", productsRouter);
 
 const accountRouter = require("./routes/account");
-app.use("/account", accountRouter);
+app.use("/accounts", accountRouter);
 
-// const cartRouter = require("./routes/cart");
+const cartRouter = require("./routes/cart2");
 // const User = require("./models/User");
-// app.use("/cart", cartRouter);
+app.use("/cart", cartRouter);
 
 app.get("/", (req, res) => {
     res.json("Welcome to my e-commerce API!");

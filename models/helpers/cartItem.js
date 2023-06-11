@@ -6,7 +6,6 @@ const cartItemSchema = new mongoose.Schema({
     sizeOption: { type: String, maxLength: 10 },
     colorOption: { type: String, maxLength: 50 },
     quantity: { type: Number, min: 0, default: 1, required: true },
-    price: { type: Number, min: 0, required: true },
 });
 
 module.exports = cartItemSchema;
