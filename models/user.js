@@ -1,41 +1,49 @@
 const mongoose = require("mongoose");
-// const Order = require("./order");
+const cartItemSchema = require("./helpers/cartItem");
+const addressSchema = require("./helpers/address");
 
-// const cartItem = new mongoose.Schema({
-//     product_id: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-//     // size_option: { type: String, required: true, maxLength: 10 },
-//     // color_option: { type: String, required: true, maxLength: 50 },
-//     quantity: { type: Number, min: 0, default: 1 },
-//     price: { type: Number, min: 0, required: true },
-// });
-
-const cart = new mongoose.Schema({
-    contents: [{}],
-    total: { type: Number, min: 0, default: 0 },
-});
-
-const dataSchema = new mongoose.Schema({
-    first_name: {
+const userSchema = new mongoose.Schema({
+    firstName: {
         required: true,
         type: String,
         maxLength: 100,
     },
-    family_name: {
+    familyName: {
         required: true,
         type: String,
         maxLength: 100,
     },
-    email: { type: String, required: true, maxLength: 255 },
-    password: { type: String, required: true, maxLength: 255 },
-    addresses: [], //is_default
-    payment_methods: [], //is_default
-    cart: { type: cart, default: {} },
-    orders: [],
-    created_at: {
-        default: Date.now,
+    email: { type: String, required: true, maxLength: 255, lowercase: true },
+    password: { type: String, required: true },
+    addresses: [{ type: addressSchema }],
+    paymentMethods: [],
+    cart: {
+        contents: [{ type: cartItemSchema }],
+        total: { type: Number, min: 0, default: 0 },
+    },
+    orders: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Order",
+        },
+    ],
+    createdAt: {
         type: Date,
+        default: () => Date.now(),
+        immutable: true,
+    },
+    updatedAt: {
+        type: Date,
+        default: () => Date.now(),
     },
 });
 
-//look into virtual properties
-module.exports = mongoose.model("User", dataSchema);
+userSchema.pre("save", function (next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
+//when item added/removed to cart, update cart total
+
+//look into virtual properties (for first and last names)
+module.exports = mongoose.model("User", userSchema);

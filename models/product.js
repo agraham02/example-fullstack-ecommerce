@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const dataSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name: {
         required: true,
         type: String,
-        maxLength: 100,
+        maxLength: 255,
     },
     price: {
         required: true,
@@ -16,23 +16,30 @@ const dataSchema = new mongoose.Schema({
         default: "No Description Avaliable",
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ProductCategory",
-        required: true,
-    },
-    sub_category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ProductCategory",
-    },
-    img_src: {
         type: String,
-        default: "defaultImg.jpg",
+        // required: true,
     },
-    created_at: {
-        default: Date.now,
+    subCategory: {
+        type: String,
+    },
+    imgSrc: [],
+    sizeOptions: [{ type: String, enum: ["OS", "XS", "S", "M", "L", "XL"] }],
+    colorOptions: [],
+    createdAt: {
         type: Date,
+        default: () => Date.now(),
+        immutable: true,
+    },
+    updatedAt: {
+        type: Date,
+        default: () => Date.now(),
     },
 });
 
+productSchema.pre("save", function (next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
 //create virtual property to see if item is in stock
-module.exports = mongoose.model("Product", dataSchema);
+module.exports = mongoose.model("Product", productSchema);

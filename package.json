@@ -13,7 +13,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "temp": "nodemon script.js"
   },
   "name": "example-ecommerce-api",
   "version": "1.0.0",

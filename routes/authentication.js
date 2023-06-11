@@ -76,8 +76,8 @@ router.get("/is-authenticated", async (req, res) => {
 });
 
 router.get("/id", async (req, res) => {
-    const id = await req.user.id;
-    res.json(id);
+    const account = await req.user;
+    res.json(account._id);
 });
 
 router.get("/logout", (req, res) => {

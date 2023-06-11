@@ -7,41 +7,48 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const LocalStategy = require("passport-local").Strategy;
-const initializePassport = require("./passportConfig");
+// const initializePassport = require("./passportConfig");
 const PORT = process.env.PORT;
 
 const app = express();
-const mongoString = process.env.DATABASE_URL;
+const mongoString = process.env.LOCAL_DATABASE_URL;
 
-app.use(cors());
+// app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: ["POST", "PATCH", "GET", "DELETE"],
+        credentials: true,
+    })
+);
 app.use(express.static("public"));
 app.use(bodyParser.json());
 
-const store = new MongoDBStore({
-    uri: process.env.DATABASE_URL,
-    collection: "sessions",
-});
-store.on("error", (error) => {
-    console.log(error);
-});
-// const store = new session.MemoryStore();m
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        store: store,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24 * 2, // 2 days
-            secure: false,
-            sameSite: "none",
-        },
-    })
-);
+// const store = new MongoDBStore({
+//     uri: process.env.DATABASE_URL,
+//     collection: "sessions",
+// });
+// store.on("error", (error) => {
+//     console.log(error);
+// });
 
-initializePassport(passport);
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(
+//     session({
+//         secret: process.env.SESSION_SECRET,
+//         resave: false,
+//         saveUninitialized: false,
+//         store: store,
+//         cookie: {
+//             maxAge: 1000 * 60 * 60 * 24 * 2, // 2 days
+//             secure: false,
+//             sameSite: "lax",
+//         },
+//     })
+// );
+
+// initializePassport(passport);
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 //Database
 mongoose.set("strictQuery", false);
@@ -57,8 +64,8 @@ database.once("connected", () => {
 });
 
 //Routes
-const authenticationRouter = require("./routes/authentication");
-app.use("/auth", authenticationRouter);
+// const authenticationRouter = require("./routes/authentication");
+// app.use("/auth", authenticationRouter);
 
 const productsRouter = require("./routes/product");
 app.use("/product", productsRouter);
@@ -66,9 +73,9 @@ app.use("/product", productsRouter);
 const accountRouter = require("./routes/account");
 app.use("/account", accountRouter);
 
-const cartRouter = require("./routes/cart");
-const User = require("./models/User");
-app.use("/cart", cartRouter);
+// const cartRouter = require("./routes/cart");
+// const User = require("./models/User");
+// app.use("/cart", cartRouter);
 
 app.get("/", (req, res) => {
     res.json("Welcome to my e-commerce API!");
