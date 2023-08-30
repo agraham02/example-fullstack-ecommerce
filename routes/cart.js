@@ -1,140 +1,81 @@
 const express = require("express");
-const Product = require("../models/product");
-const CartItem = require("../models/cartItem");
 const User = require("../models/user");
+const Product = require("../models/product");
+const Order = require("../models/order");
+const CartItem = require("../models/helpers/cartItem");
+const { default: mongoose } = require("mongoose");
 
 const router = express.Router();
 
-router.post("/add-to-cart", async (req, res) => {
+const USER_ID = "64ecf263a040b401d0931145";
+
+router.get("/", async (req, res) => {
+    const user = await User.findById(USER_ID);
+    res.json(user.cart);
+});
+
+router.get("/size", async (req, res) => {
+    const user = await User.findById(USER_ID);
+    Object.keys(user.cart.contents);
+    const contentsSize = Object.keys(user.cart.contents).length;
+    res.json(contentsSize);
+});
+
+//set quantity
+router.put("/", async (req, res) => {
     try {
-        const { productId } = req.body;
-        const account = await req.user;
+        const { productId, quantity } = req.body;
         const product = await Product.findById(productId);
-        // console.log(account);
-        // console.log(product);
+        const user = await User.findById(USER_ID);
+        mongoose.set("debug", true);
 
-        if (account.cart.contents.length > 0) {
-            console.log("Hey");
-            for (let i = 0; i < account.cart.contents.length; i++) {
-                if (product._id.equals(account.cart.contents[i].product_id)) {
-                    console.log("already in cart. updating num...");
-                    // cartItem.quantity = cartItem.quantity + 1;
-                    account.cart.contents[i].quantity =
-                        account.cart.contents[i].quantity + 1;
-                    // cartItem.cart.total = cartItem.cart.total + product.price;
-                    account.cart.total = account.cart.total + product.price;
-                    const result = await User.findByIdAndUpdate(
-                        account._id,
-                        account
-                    );
-                    res.json(`${product._id} quantity updated`);
-                    return;
-                }
-            }
+        if (!product) {
+            res.send("no item");
         }
 
-        const item = new CartItem({
-            product_id: product._id,
-            quantity: 1,
-        });
-        account.cart.contents.push(item);
-        account.cart.total = account.cart.total + product.price;
+        if (!user.cart.contents[productId]) {
+            const newCartItem = {
+                productId,
+                quantity,
+            };
 
-        const result = await User.findByIdAndUpdate(account._id, account);
-        console.log(`${product._id} added to cart`);
-        res.json(`${product._id} added to cart`);
+            user.cart.contents[productId] = newCartItem;
+            user.cart.total = user.cart.total + product.price * quantity;
+            console.log(user);
+            user.markModified("cart.contents");
+            await user.save();
+            res.json(`${product._id} added to cart`);
+        } else {
+            prevQuantity = user.cart.contents[productId].quantity;
+            user.cart.contents[productId].quantity = quantity;
+            user.cart.total =
+                user.cart.total +
+                (product.price * quantity - product.price * prevQuantity);
+            console.log(user);
+            user.markModified("cart.contents");
+            await user.save();
+            res.json(`${product._id} quantity updated`);
+        }
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 });
 
-router.get("/count/:userId", async (req, res) => {
-    const account = await req.user;
-    if (account) {
-        res.json(account.cart.contents.length);
-        return;
-    } else {
-        res.json(null);
-    }
-});
-
-// router.post("/", async (req, res) => {
-//     const { firstName, familyName, email, password } = req.body;
-//     const data = new User({
-//         first_name: firstName,
-//         family_name: familyName,
-//         email,
-//         password,
-//     });
-
-//     try {
-//         const dataToSave = await data.save();
-//         res.status(200).json(dataToSave);
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//     }
-// });
-
-// router.get("/", async (req, res) => {
-//     try {
-//         const data = await User.find();
-//         res.json(data);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-// router.get("/:id", async (req, res) => {
-//     try {
-//         const data = await Model.findById(req.params.id);
-//         res.json(data);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-// router.patch("/:id", async (req, res) => {
-//     // res.send("Update by ID API");
-//     try {
-//         const { id } = req.params;
-//         const updatedData = req.body;
-//         const options = { new: true };
-
-//         const result = await Model.findByIdAndUpdate(id, updatedData, options);
-//         res.send(result);
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//     }
-// });
-
-router.delete("/remove-item", async (req, res) => {
-    // res.send("Delete by ID API");
+//add or substract from quantity
+router.patch("/", async (req, res) => {
     try {
-        const { productId } = req.body;
-        const account = await req.user;
-
-        for (let i = 0; i < account.cart.contents.length; i++) {
-            if (account.cart.contents[i].product_id.equals(productId)) {
-                console.log("found item, deleating...");
-                // cartItem.quantity = cartItem.quantity + 1;
-                const quantity = account.cart.contents[i].quantity;
-                const price = account.cart.contents[i].price;
-                // cartItem.cart.total = cartItem.cart.total + product.price;
-                account.cart.total = account.cart.total - price * quantity;
-                const result = await User.findByIdAndUpdate(
-                    account._id,
-                    account
-                );
-            }
-        }
-        const filteredCart = account.cart.contents.filter((product) => {
-            product._id !== productId;
-        });
-        console.log(filteredCart);
-        res.json("removed item");
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+});
+
+router.delete("/", async (req, res) => {
+    const user = await User.findById(USER_ID);
+    user.cart.total = 0;
+    user.cart.contents = {};
+    user.markModified("cart.contents");
+    await user.save();
+    res.json("Cleared user's cart");
 });
 
 module.exports = router;

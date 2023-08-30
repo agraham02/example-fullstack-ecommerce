@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const cartItemSchema = require("./helpers/cartItem");
 
 const orderSchema = new mongoose.Schema({
     userId: {
@@ -6,7 +7,7 @@ const orderSchema = new mongoose.Schema({
         ref: "User",
         immutable: true,
     },
-    contents: [],
+    contents: [{ type: cartItemSchema }],
     total: { type: Number, min: 0, default: 0, immutable: true },
     status: { type: String },
     createdAt: {

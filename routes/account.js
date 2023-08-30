@@ -1,7 +1,10 @@
 const express = require("express");
 const User = require("../models/user");
+const Order = require("../models/order");
 
 const router = express.Router();
+
+const USER_ID = "64ecf263a040b401d0931145";
 
 router.get("/", async (req, res) => {
     try {
@@ -13,20 +16,52 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/my-account", async (req, res) => {
     try {
-        const data = await User.findById(req.params.id);
-        res.json(data);
+        const myId = await req.user;
+        const myData = await User.findById(myId);
+        res.json(myData);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-router.get("/my-profile", async (req, res) => {
+router.get("/orders", async (req, res) => {
+    const user = await User.findById(USER_ID);
+    const myOrders = Order.find().where({ userID: user._id });
+    res.json(myOrders);
+});
+
+router.post("/orders", async (req, res) => {
+    const user = await User.findById(USER_ID);
+    // const { cart, {contents } } = user;
+    const { cart, cart: { contents } = {} } = user;
+    // console.log(cart);
+    // console.log(contents);
+    const orderContentsArray = [];
+    for (const itemId in contents) {
+        if (contents.hasOwnProperty(itemId)) {
+            console.log(contents[itemId]);
+            orderContentsArray.push(contents[itemId]);
+        }
+    }
+    const newOrder = new Order({
+        userId: user.id,
+        contents: orderContentsArray,
+        total: cart.total,
+        status: "Placed",
+    });
+    console.log(newOrder);
+    user.orders.push(newOrder.id);
+    await newOrder.save();
+    await user.save();
+    res.json("Your order has been placed");
+});
+
+router.get("/:id", async (req, res) => {
     try {
-        const myId = await req.user;
-        const myData = await User.findById(myId);
-        res.json(myData);
+        const data = await User.findById(req.params.id);
+        res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -40,6 +75,7 @@ router.post("/", async (req, res) => {
         email,
         password,
     });
+    console.log(data);
 
     try {
         const dataToSave = await data.save();

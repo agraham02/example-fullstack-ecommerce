@@ -73,7 +73,7 @@ app.use("/products", productsRouter);
 const accountRouter = require("./routes/account");
 app.use("/accounts", accountRouter);
 
-const cartRouter = require("./routes/cart2");
+const cartRouter = require("./routes/cart");
 // const User = require("./models/User");
 app.use("/cart", cartRouter);
 
