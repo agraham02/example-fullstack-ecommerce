@@ -1,66 +1,7 @@
-import CustomButton from "components/customs/CustomButton";
-import React, { useContext, useEffect, useState } from "react";
-import "./CartScreen.css";
-import { URL, defaultImg, deleteRequest, getRequest, patchRequest } from "utils";
-import { AppContext } from "App";
-import { Link } from "react-router-dom";
+import React from "react";
+import "./CartItem.css";
 
-function CartScreen() {
-    const [cart, setCart] = useState({});
-    const [contents, setContents] = useState([]);
-
-    async function fetchCart() {
-        const results = await getRequest("/cart");
-        setCart(results);
-        console.log(results);
-        const cartContentsAsArray = Object.values(results.contents);
-        setContents(cartContentsAsArray);
-        console.log(cartContentsAsArray);
-    }
-
-    useEffect(() => {
-        fetchCart();
-    }, []);
-
-    return (
-        <div className="cartScreen-container">
-            <div className="cart-items">
-                {/* <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem /> */}
-                {contents.map((cartItem, index) => (
-                    <CartItem
-                        key={index}
-                        itemData={cartItem}
-                        fetchCart={fetchCart}
-                    />
-                ))}
-            </div>
-            <div className="proceedToCheckout">
-                <div>
-                    Subtotal (12 items):{" "}
-                    <div style={{ fontWeight: 700, display: "inline-block" }}>
-                        ${cart ? cart.total : 0}
-                    </div>
-                </div>
-                <Link to="/place-order">
-                    <CustomButton text="Proceed to checkout" />
-                </Link>
-            </div>
-        </div>
-    );
-}
-
-function CartItem({ itemData, fetchCart }) {
+export default function CartItem({ itemData, fetchCart }) {
     const [quantity, setQuantity] = useState(itemData.quantity);
     const [productData, setProductData] = useState({});
     const [images, setImages] = useState([]);
@@ -161,5 +102,3 @@ function CartItem({ itemData, fetchCart }) {
         </div>
     );
 }
-
-export default CartScreen;

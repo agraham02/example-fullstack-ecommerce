@@ -3,28 +3,24 @@ import { Link } from "react-router-dom";
 import { getRequest, URL } from "utils";
 import "./Product.css";
 // import image from "../../media/insert_img_here.png";
-const defaultImg = "media/insert_img_here.png";
+const defaultImg = "/media/Image-Coming-Soon.png";
 
 export default function Product({ productData }) {
-    // console.log(productData)
-    // console.log(productData.img_scr);
-    const [img, setImg] = useState(defaultImg);
+    const usingDefaultImg = productData.imgSrc.length === 0;
+    const images = productData.imgSrc || [];
+    const [imgIndex, setImgIndex] = useState(0);
 
-    const getImg = async () => {
-        const path = `${URL}/images/products/${productData.img_scr}`;
-        // console.log(path);
-        const imgURL = await fetch(path);
-        setImg(imgURL.url);
-    };
-
-    useEffect(() => {
-        getImg();
-    }, []);
     return (
         <div className="product-container">
             {/* <div className="img-container"> */}
-            <Link to={`/products/${productData.id}`}>
-                <img src={img} />
+            <Link to={`/products/${productData._id}`}>
+                <img
+                    src={
+                        images.length
+                            ? `${URL}/images/products/${images[imgIndex]}`
+                            : defaultImg
+                    }
+                />
             </Link>
             {/* </div> */}
             <div className="product-body">

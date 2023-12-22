@@ -1,0 +1,13 @@
+.cart-items .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.cart-item input {
+  width: 50px;
+  padding: 5px;
+  margin-left: 10px;
+}

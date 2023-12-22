@@ -1,27 +1,41 @@
 import CustomButton from "components/customs/CustomButton";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRequest, URL } from "utils";
+import { getRequest, patchRequest, postRequest, putRequest, TEST_USER_ID, URL } from "utils";
 import "./ProductDetailScreen.css";
-const defaultImg = "media/insert_img_here.png";
+import { AppContext } from "App";
+const defaultImg = "/media/Image-Coming-Soon.png";
 
 function ProductDetailScreen() {
-    const { id } = useParams();
+    const { productId } = useParams();
     const [productData, setProductData] = useState({});
-    const [img, setImg] = useState(defaultImg);
+    const [images, setImages] = useState([]);
+    const [imgIndex, setImgIndex] = useState(0);
+    const { updateCartSize } = useContext(AppContext);
 
     const getProductInfo = async () => {
-        const results = await getRequest(`/products/${id}`);
+        const results = await getRequest(`/products/${productId}`);
         setProductData(results);
-
-        const path = `${URL}/images/products/${results.img_scr}`;
-        const imgURL = await fetch(path);
-        setImg(imgURL.url);
+        setImages(results.imgSrc || []);
     };
 
-    const handleOnAddToBagPressed = () => {
+    const handleOnAddToBagPressed = async () => {
         console.log("Adding to cart...");
+        const response = await patchRequest("/cart/add", {
+            userId: TEST_USER_ID,
+            productId: productData._id,
+            quantity: 1
+        });
+        updateCartSize();
+        console.log(response);
     };
+
+    /* 
+    const usingDefaultImg = productData.imgSrc.length === 0;
+    const images = productData.imgSrc || [defaultImg];
+    const [imgIndex, setImgIndex] = useState(0);
+    
+    */
 
     useEffect(() => {
         getProductInfo();
@@ -30,7 +44,13 @@ function ProductDetailScreen() {
     return (
         <div className="product-details-container">
             <div className="img-container">
-                <img src={img} />
+                <img
+                    src={
+                        images.length
+                            ? `${URL}/images/products/${images[imgIndex]}`
+                            : defaultImg
+                    }
+                />
             </div>
             <div className="details">
                 <p className="name">{productData.name}</p>

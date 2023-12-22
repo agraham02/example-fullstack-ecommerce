@@ -1,0 +1,22 @@
+.login-container {
+    margin: 10%;
+}
+
+.login-container form {
+    /* border: solid red; */
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    /* border: solid red; */
+    display: flex;
+    padding: .3rem;
+    margin: 20px;
+}
+
+.login-container input {
+    display: inline-flex;
+    flex-grow: 1;
+    margin-left: .4rem;
+}

@@ -6,24 +6,25 @@ import "./ProductList.css";
 function ProductList() {
     const [products, setProducts] = useState([]);
     const [currCnt, setCurrCnt] = useState(7);
-    const [totalCnt, setTotalCnt] = useState(29);
+    const [totalCnt, setTotalCnt] = useState(0);
 
     async function getProductsFromAPI() {
-        const response = await getRequest("/products/");
+        const response = await getRequest("/products");
         console.log(response);
         setProducts(response);
+        setCurrCnt(response.length);
+        setTotalCnt(response.length);
     }
 
     useEffect(() => {
         getProductsFromAPI();
-        console.log(products);
     }, []);
 
     return (
         <>
             <div className="productList-container">
-                {products.map((product) => (
-                    <Product key={product.id} productData={product} />
+                {products.map((product, index) => (
+                    <Product key={index} productData={product} />
                 ))}
             </div>
             <div className="load-more-container">

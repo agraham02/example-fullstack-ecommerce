@@ -1,8 +1,17 @@
-import React from "react";
+import { AppContext } from "App";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getRequest } from "utils";
 import "./Nav.css";
 
 function Nav() {
+    const { initApp, cartSize } = useContext(AppContext);
+
+    const handleOnLogOutPressed = async () => {
+        // const response = await getRequest("/auth/logout");
+        // await initApp();
+    };
+
     return (
         <nav>
             <Link to="/">
@@ -15,11 +24,16 @@ function Nav() {
                 <div>Accessories</div>
             </div>
             <div>
-                <div>Account</div>
-                <div>Orders</div>
-                <Link to="/cart">
-                    <div>Cart</div>
+                <Link to="/account">
+                    <div>Account</div>
                 </Link>
+                <Link to="/orders">
+                    <div>Orders</div>
+                </Link>
+                <Link to="/cart">
+                    <div>Cart: {cartSize}</div>
+                </Link>
+                <div onClick={handleOnLogOutPressed}>Logout</div>
             </div>
         </nav>
     );
