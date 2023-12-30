@@ -1,0 +1,5 @@
+const cartCreater = () => {
+
+}
+
+const carts = [];
