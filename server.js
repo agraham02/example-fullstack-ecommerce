@@ -17,7 +17,7 @@ const mongoString = process.env.LOCAL_DATABASE_URL;
 app.use(
     cors({
         origin: "http://localhost:3000",
-        methods: ["POST", "PATCH", "GET", "DELETE"],
+        methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
         credentials: true,
     })
 );

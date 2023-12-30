@@ -28,34 +28,45 @@ router.get("/my-account", async (req, res) => {
 
 router.get("/orders", async (req, res) => {
     const user = await User.findById(USER_ID);
-    const myOrders = Order.find().where({ userID: user._id });
+    // console.log(user);
+    const myOrders = await Order.find({ userId: user._id });
+    console.log(myOrders);
     res.json(myOrders);
 });
 
 router.post("/orders", async (req, res) => {
-    const user = await User.findById(USER_ID);
-    // const { cart, {contents } } = user;
-    const { cart, cart: { contents } = {} } = user;
-    // console.log(cart);
-    // console.log(contents);
-    const orderContentsArray = [];
-    for (const itemId in contents) {
-        if (contents.hasOwnProperty(itemId)) {
-            console.log(contents[itemId]);
-            orderContentsArray.push(contents[itemId]);
+    try {
+        const user = await User.findById(USER_ID);
+        const { addressData, cardData } = req.body;
+        // const { cart, {contents } } = user;
+        const { cart, cart: { contents } = {} } = user;
+        // console.log(cart);
+        // console.log(contents);
+        const orderContentsArray = [];
+        for (const itemId in contents) {
+            if (contents.hasOwnProperty(itemId)) {
+                console.log(contents[itemId]);
+                orderContentsArray.push(contents[itemId]);
+            }
         }
+        const newOrder = new Order({
+            userId: user.id,
+            contents: orderContentsArray,
+            total: cart.total,
+            status: "Placed",
+            address: addressData,
+            card: cardData,
+        });
+        console.log(newOrder);
+        user.orders.push(newOrder.id);
+        await newOrder.save();
+        await user.save();
+        // TODO clear cart
+        res.json("Your order has been placed");
+    } catch (error) {
+        console.log(error);
+        res.json(error.message);
     }
-    const newOrder = new Order({
-        userId: user.id,
-        contents: orderContentsArray,
-        total: cart.total,
-        status: "Placed",
-    });
-    console.log(newOrder);
-    user.orders.push(newOrder.id);
-    await newOrder.save();
-    await user.save();
-    res.json("Your order has been placed");
 });
 
 router.get("/:id", async (req, res) => {
