@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 export default function OrderConfrimationScreen() {
-  return (
-    <div>OrderConfrimationScreen</div>
-  )
+    const location = useLocation();
+
+    return (
+        <div>
+            <h1>OrderConfrimationScreen</h1>
+            {location.state?.message}
+        </div>
+    );
 }

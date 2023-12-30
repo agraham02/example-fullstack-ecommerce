@@ -26,25 +26,52 @@ export default function Orders() {
             <h1>Your Orders</h1>
             <div className="order-list">
                 {orders.map((order) => (
-                    <div key={order._id} className="order">
-                        <p>
-                            <strong>Order ID:</strong> {order._id}
-                        </p>
-                        <p>
-                            <strong>Date:</strong> {formatDate(order.createdAt)}
-                        </p>
-                        <p>
-                            <strong>Total:</strong> {formatMoney(order.total)}
-                        </p>
-                        {/* <p>
-                            <strong>Items:</strong> {order.items}
-                        </p> */}
-                        <p>
-                            <strong>Status:</strong> {order.status}
-                        </p>
-                    </div>
+                    <Order key={order._id} order={order}/>
                 ))}
             </div>
         </div>
     );
+}
+
+function Order({order}) {
+    return (
+        <div key={order._id} className="order">
+            <p>
+                <strong>Order ID:</strong> {order._id}
+            </p>
+            <p>
+                <strong>Date:</strong> {formatDate(order.createdAt)}
+            </p>
+            <p>
+                <strong>Total:</strong> {formatMoney(order.total)}
+            </p>
+            {/* <p>
+                            <strong>Items:</strong> {order.items}
+                        </p> */}
+            <p>
+                <strong>Status:</strong> {order.status}
+            </p>
+            <div className="order-items">
+                {order.contents.map((item) => <OrderItem key={item._id} item={item}/>)}
+            </div>
+        </div>
+    );
+}
+
+function OrderItem({item}) {
+    const [productData, setProductData] = useState({});
+    const [images, setImages] = useState([]);
+    const [imgIndex, setImgIndex] = useState(0);
+
+    const getProductInfo = async () => {
+        const results = await getRequest(`/products/${item.productId}`);
+        setProductData(results);
+        setImages(results.imgSrc || []);
+    };
+
+    useEffect(() => {
+        getProductInfo();
+    }, []);
+
+    return (<div>{productData.name}</div>)
 }

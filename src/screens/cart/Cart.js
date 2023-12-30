@@ -1,7 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css"; // Importing the CSS file
 import { Link } from "react-router-dom";
-import { URL, defaultImg, deleteRequest, formatMoney, getRequest, patchRequest } from "utils";
+import {
+    URL,
+    defaultImg,
+    deleteRequest,
+    formatMoney,
+    getRequest,
+    patchRequest,
+} from "utils";
 import { AppContext } from "App";
 import CustomButton from "components/customs/CustomButton";
 
@@ -15,6 +22,7 @@ export default function Cart() {
 
     const [cart, setCart] = useState({});
     const [cartItems, setCartItems] = useState([]);
+    const { updateCartSize } = useContext(AppContext);
 
     async function fetchCart() {
         const results = await getRequest("/cart");
@@ -41,9 +49,12 @@ export default function Cart() {
         setCartItems(cartItems.filter((item) => item.id !== id));
     };
 
-    const handleClearCart = () => {
-        setCartItems([]); // Clears the cart
-    };
+    async function handleClearCart() {
+        const results = await deleteRequest("/cart");
+        fetchCart();
+        updateCartSize();
+        console.log(results);
+    }
 
     const totalItems = cartItems.reduce(
         (total, item) => total + item.quantity,
@@ -55,7 +66,7 @@ export default function Cart() {
             <h1>Your Cart</h1>
             <div className="cart-items">
                 {cartItems.map((item) => (
-                    <CartItem2 itemData={item} fetchCart={fetchCart}/>
+                    <CartItem2 itemData={item} fetchCart={fetchCart} />
                 ))}
             </div>
             {cartItems.length > 0 && (
@@ -65,11 +76,11 @@ export default function Cart() {
             )}
             <div className="cart-summary">
                 <p>Total Items: {totalItems}</p>
-                <p>Total Price: {formatMoney(cart.total)}</p>
+                <p>Total Price: {formatMoney(cart.total || 0)}</p>
             </div>
             <Link to="/checkout">
-                {/* <CustomButton text="Proceed to checkout" /> */}
-                <button className="checkout-button">Checkout</button>
+                <CustomButton text="Proceed to checkout" />
+                {/* <button className="checkout-button">Checkout</button> */}
             </Link>
         </div>
     );

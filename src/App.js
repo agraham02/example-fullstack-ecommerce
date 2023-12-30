@@ -4,7 +4,6 @@ import "./App.css";
 import ProductsScreen from "screens/products/ProductsScreen";
 import Home from "screens/home/Home";
 import ProductDetailScreen from "screens/productDetail/ProductDetailScreen";
-import CartScreen from "screens/cart/CartScreen";
 import { Route, Routes } from "react-router-dom";
 import Login from "screens/authentication/login/Login";
 import Register from "screens/authentication/register/Register";
@@ -17,6 +16,7 @@ import Orders from "screens/account/Orders";
 import Cart from "screens/cart/Cart";
 import Checkout from "screens/order/Checkout";
 import ConfirmOrder from "screens/order/ConfirmOrder";
+import CartScreen from "screens/cart/CartScreen";
 
 export const AppContext = createContext();
 

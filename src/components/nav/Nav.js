@@ -23,7 +23,7 @@ function Nav() {
                 <div>Shoes</div>
                 <div>Accessories</div>
             </div>
-            <div>
+            <div className="page-nav">
                 <Link to="/account">
                     <div>Account</div>
                 </Link>

@@ -1,15 +1,27 @@
 // ConfirmOrder.js
 import CustomButton from "components/customs/CustomButton";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { postRequest } from "utils";
 
 export default function ConfirmOrder() {
+    const nav = useNavigate();
     const location = useLocation();
+
     const handleConfirmOrder = () => {
         // Handle order confirmation logic here (e.g., sending data to backend)
         alert("Order confirmed!");
     };
 
+    async function handleOrderSubmit() {
+        const results = await postRequest("/accounts/orders", {
+            addressData,
+            cardData,
+        });
+        console.log(results);
+        nav("/order-confirmation", {state: {message: results}});
+    }
+    
     const [addressData, setAddressData] = useState(location.state.addressData);
     const [cardData, setCardData] = useState(location.state.cardData);
 
@@ -25,9 +37,9 @@ export default function ConfirmOrder() {
             <div className="order-summary">
                 <h2>Shipping Address</h2>
                 <p>{addressData.name}</p>
-                <p>{addressData.addressLine1}</p>
-                <p>{addressData.addressLine2}</p>
-                <p>{`${addressData.city}, ${addressData.state} ${addressData.zipCode}`}</p>
+                <p>{addressData.line1}</p>
+                <p>{addressData.line2}</p>
+                <p>{`${addressData.city}, ${addressData.state} ${addressData.postalCode}`}</p>
                 <p>{addressData.country}</p>
 
                 <h2>Payment Details</h2>
@@ -40,15 +52,11 @@ export default function ConfirmOrder() {
                     {/* <button onClick={onEdit} className="edit-button">
                         Edit Details
                     </button> */}
-                    <Link to="/checkout" state={{addressData, cardData}}>
-                        <CustomButton
-                            text="Edit Details"
-                        />
+                    <Link to="/checkout" state={{ addressData, cardData }}>
+                        <CustomButton text="Edit Details" />
                     </Link>
                     <Link to="/cart">
-                        <CustomButton
-                            text="Edit Cart"
-                        />
+                        <CustomButton text="Edit Cart" />
                     </Link>
                     {/* <button
                         onClick={() => alert("Order confirmed!")}
@@ -65,7 +73,7 @@ export default function ConfirmOrder() {
             <Link to="/order-confirmation">
                 <CustomButton
                     text="Confirm Order"
-                    handleFunction={handleConfirmOrder}
+                    handleFunction={handleOrderSubmit}
                 />
             </Link>
         </div>

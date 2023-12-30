@@ -12,12 +12,12 @@ export default function Checkout() {
     const [addressData, setAddressData] = useState(
         location.state?.addressData || {
             name: "",
-            addressLine1: "",
-            addressLine2: "",
+            line1: "",
+            line2: "",
             city: "",
             state: "",
             country: "",
-            zipCode: "",
+            postalCode: "",
         }
     );
     const [cardData, setCardData] = useState(
@@ -43,7 +43,7 @@ export default function Checkout() {
             addressData,
             cardData,
         });
-        nav("/order-confirmation", { state: { hello: "there" } });
+        nav("/order-confirmation");
         console.log(results);
     }
 
@@ -84,8 +84,8 @@ function AddressForm({ addressData, setAddressData }) {
                 <label>Address Line 1:</label>
                 <input
                     type="text"
-                    name="addressLine1"
-                    value={addressData.addressLine1}
+                    name="line1"
+                    value={addressData.line1}
                     onChange={handleChange}
                 />
             </div>
@@ -94,8 +94,8 @@ function AddressForm({ addressData, setAddressData }) {
                 <label>Address Line 2:</label>
                 <input
                     type="text"
-                    name="addressLine2"
-                    value={addressData.addressLine2}
+                    name="line2"
+                    value={addressData.line2}
                     onChange={handleChange}
                 />
             </div>
@@ -134,8 +134,8 @@ function AddressForm({ addressData, setAddressData }) {
                 <label>ZIP Code:</label>
                 <input
                     type="text"
-                    name="zipCode"
-                    value={addressData.zipCode}
+                    name="postalCode"
+                    value={addressData.postalCode}
                     onChange={handleChange}
                 />
             </div>
