@@ -8,7 +8,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const LocalStategy = require("passport-local").Strategy;
 // const initializePassport = require("./passportConfig");
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 const mongoString = process.env.LOCAL_DATABASE_URL;
