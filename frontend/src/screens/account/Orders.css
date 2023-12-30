@@ -1,0 +1,29 @@
+.orders {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.orders h1 {
+  text-align: center;
+  color: #333;
+}
+
+.order-list {
+  margin-top: 20px;
+}
+
+.order {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.order p {
+  margin: 5px 0;
+}

@@ -1,0 +1,21 @@
+.light-text {
+  color: #555;
+}
+
+/* body, html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.App { 
+  height: 100%
+} */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
